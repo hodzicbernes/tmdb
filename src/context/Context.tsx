@@ -3,6 +3,7 @@ import IMovie from "../interfaces/IMovie";
 import ITvShow from "../interfaces/ITvShow";
 import axios from "axios";
 import { useDebounce } from 'use-debounce';
+const { VITE_API_KEY, VITE_API_BASE_URL } = import.meta.env;
 
 export enum TabOption {
   MOVIE = "movie",
@@ -43,9 +44,9 @@ const Provider: React.FC<IContextProps> = ({ children }) => {
   const fetchData = async () => {
     if (searchQuery?.length > 2) {
       await axios
-        .get(`https://api.themoviedb.org/3/search/${selectedTab}`, {
+        .get(`${VITE_API_BASE_URL}/search/${selectedTab}`, {
           params: {
-            api_key: "3adddc6450cee021ab92328ed2bbd662",
+            api_key: VITE_API_KEY,
             language: "en-US",
             query: searchQuery,
           },
@@ -57,9 +58,9 @@ const Provider: React.FC<IContextProps> = ({ children }) => {
         });
     } else {
       await axios
-        .get(`https://api.themoviedb.org/3/${selectedTab}/top_rated`, {
+        .get(`${VITE_API_BASE_URL}/${selectedTab}/top_rated`, {
           params: {
-            api_key: "3adddc6450cee021ab92328ed2bbd662",
+            api_key: VITE_API_KEY,
             language: "en-US",
           },
         })

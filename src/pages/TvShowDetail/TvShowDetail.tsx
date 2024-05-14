@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import ITvShow from "../../interfaces/ITvShow";
 import "./tv-show-detail.css";
+const { VITE_API_KEY, VITE_API_BASE_URL } = import.meta.env;
 
 const TvShowDetail = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ const TvShowDetail = () => {
   const fetchData = async () => {
     await axios
       .get(
-        `https://api.themoviedb.org/3/tv/${id}?api_key=3adddc6450cee021ab92328ed2bbd662`
+        `${VITE_API_BASE_URL}/tv/${id}?api_key=${VITE_API_KEY}`
       )
       .then((res) => {
         setTvShow(res?.data);
